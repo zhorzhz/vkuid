@@ -25,46 +25,11 @@
 		</p>
 	</a>
 
-	<!--<div id="inputs-wrapper" itemscope>-->
-		<!---->
-		<!--<ul>-->
-			<!--<li>-->
-				<!--<input id="url" type="text" class="main-input" placeholder="User URL" itemprop="userPageUrl" equired>-->
-			<!--</li>-->
-			<!--<li style="text-align: center;">-->
-				<!--<div class="get-btn" onclick="get()">-->
-					<!--<span itemprop="getUserId">get Uid</span>-->
-				<!--</div>-->
-			<!--</li>-->
-			<!--<li>-->
-				<!--<p itemprop="first_name">First name</p>-->
-				<!--<input id="first" type="text" placeholder="" required>-->
-			<!--</li>-->
-			<!--<li>-->
-				<!--<p itemprop="last_name">Last name</p>-->
-				<!--<input id="last" type="text" placeholder="" required>-->
-			<!--</li>-->
-			<!--<li>-->
-				<!--<p itemprop="userId">Uid</p>-->
-				<!--<input id="uid" type="text" placeholder="">-->
-			<!--</li>-->
-		<!--</ul>-->
-
-		<!--<div class="user-page">-->
-			<!--<h3 itemprop="userPage">User Page</h3>-->
-				<!--<a id="page" href="" target="_blank">-->
-					<!--<div class="get-btn">-->
-						<!--<span itemprop="findUserPage">Open in new tab<span>-->
-					<!--</div>-->
-				<!--</a>-->
-		<!--</div>-->
-	<!--</div>-->
-
 	<div id="inputs-wrapper" itemscope>
 
 		<ul>
 			<li>
-				<input id="url" type="text" class="main-input" placeholder="User URL" itemprop="userPageUrl" equired>
+				<input id="url" type="text" class="main-input" placeholder="Profile URL" itemprop="userPageUrl" required>
 			</li>
 			<li style="text-align: center;">
 				<div class="get-btn" onclick="get()">
@@ -73,7 +38,7 @@
 			</li>
 			<li>
 				<p itemprop="userId">Uid</p>
-				<input id="uid" type="text" placeholder="">
+				<input id="uid" type="text">
 			</li>
 		</ul>
 	</div>
@@ -95,12 +60,10 @@
 		var input = $('#url').val().slice($('#url').val().indexOf('.com') + 5);
         $('#inputs-wrapper').animate({ height: "150px" }, 1000, "easeOutBounce");
 		VK.Api.call('users.get', {user_ids: input}, function(response) {
-            $('#inputs-wrapper').animate({ height: "268px" }, 1000, "easeOutBounce");
             if(response.response){
-	    		$('#first').val(response.response[0].first_name);
-				$('#last').val(response.response[0].last_name);
 				$('#uid').val(response.response[0].uid);
 				$("#page").attr("href", 'http://vk.com/id'+response.response[0].uid);
+                $('#inputs-wrapper').animate({ height: "268px" }, 1000, "easeOutBounce");
 	    	} else {
 	    		alert('Oops');
 	    	}
