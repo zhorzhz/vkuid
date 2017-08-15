@@ -9,6 +9,7 @@
 	<meta name="Описание" content="Хочеш найти свой личный цифровой ID Vkontakte или uid? Это что-то новое для лучших администраторов, юзеров и групп. Вводи свой VK URL здесь, если хочеш найти свой username или lastname">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<script src="libs/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="libs/jquery-ui.min.js">></script>
 	<script src="libs/openapi.js" type="text/javascript"></script>
 </head>
 <body>
@@ -23,8 +24,44 @@
 			Here is your VK page URL
 		</p>
 	</a>
+
+	<!--<div id="inputs-wrapper" itemscope>-->
+		<!---->
+		<!--<ul>-->
+			<!--<li>-->
+				<!--<input id="url" type="text" class="main-input" placeholder="User URL" itemprop="userPageUrl" equired>-->
+			<!--</li>-->
+			<!--<li style="text-align: center;">-->
+				<!--<div class="get-btn" onclick="get()">-->
+					<!--<span itemprop="getUserId">get Uid</span>-->
+				<!--</div>-->
+			<!--</li>-->
+			<!--<li>-->
+				<!--<p itemprop="first_name">First name</p>-->
+				<!--<input id="first" type="text" placeholder="" required>-->
+			<!--</li>-->
+			<!--<li>-->
+				<!--<p itemprop="last_name">Last name</p>-->
+				<!--<input id="last" type="text" placeholder="" required>-->
+			<!--</li>-->
+			<!--<li>-->
+				<!--<p itemprop="userId">Uid</p>-->
+				<!--<input id="uid" type="text" placeholder="">-->
+			<!--</li>-->
+		<!--</ul>-->
+
+		<!--<div class="user-page">-->
+			<!--<h3 itemprop="userPage">User Page</h3>-->
+				<!--<a id="page" href="" target="_blank">-->
+					<!--<div class="get-btn">-->
+						<!--<span itemprop="findUserPage">Open in new tab<span>-->
+					<!--</div>-->
+				<!--</a>-->
+		<!--</div>-->
+	<!--</div>-->
+
 	<div id="inputs-wrapper" itemscope>
-		
+
 		<ul>
 			<li>
 				<input id="url" type="text" class="main-input" placeholder="User URL" itemprop="userPageUrl" equired>
@@ -35,28 +72,12 @@
 				</div>
 			</li>
 			<li>
-				<p itemprop="first_name">First name</p>
-				<input id="first" type="text" placeholder="" required>
-			</li>
-			<li>
-				<p itemprop="last_name">Last name</p>
-				<input id="last" type="text" placeholder="" required>
-			</li>
-			<li>
 				<p itemprop="userId">Uid</p>
 				<input id="uid" type="text" placeholder="">
 			</li>
 		</ul>
-
-		<div class="user-page">
-			<h3 itemprop="userPage">User Page</h3>
-				<a id="page" href="" target="_blank">
-					<div class="get-btn">
-						<span itemprop="findUserPage">Open in new tab<span>
-					</div>
-				</a>
-		</div>
 	</div>
+
 	<p class="top-text" itemprop="description">
 		Do you want to find your Vk(vkontakte) personal numeric ID, uid or you have a problem and it's how to find vk user id, so It is something new for best admins, users, and groups, enter your Vk.com personal profile URL here, if you want to find your username,user_name or lastname, last_name:
 	</p>
@@ -72,10 +93,10 @@
 	});
 	function get(){
 		var input = $('#url').val().slice($('#url').val().indexOf('.com') + 5);
-		//console.log(input);
-		VK.Api.call('users.get', {user_ids: input}, function(response) { 
-                //console.log(response);
-	    	if(response.response){
+        $('#inputs-wrapper').animate({ height: "150px" }, 1000, "easeOutBounce");
+		VK.Api.call('users.get', {user_ids: input}, function(response) {
+            $('#inputs-wrapper').animate({ height: "268px" }, 1000, "easeOutBounce");
+            if(response.response){
 	    		$('#first').val(response.response[0].first_name);
 				$('#last').val(response.response[0].last_name);
 				$('#uid').val(response.response[0].uid);
