@@ -115,6 +115,12 @@ li{
 	background: #4c78b4;
 }
 
+.disabled{
+	background: #4c78b4;
+	pointer-events: none;
+	opacity: 0.4;
+}
+
 .user-page{
 	text-align: center;
 	margin-top: 20px;
