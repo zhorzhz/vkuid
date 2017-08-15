@@ -61,7 +61,7 @@
     var regex = new RegExp("(vk|vkontakte)\.com\/");
 	function get(){
         var valid = regex.test($('#url').val());
-        $('#getButton').addClass('disabled');
+        $('li #getButton').addClass('disabled');
         if(valid) {
             var input = $('#url').val().slice($('#url').val().indexOf('.com') + 5);
             $('#inputs-wrapper').animate({height: "150px"}, 1000, "easeOutBounce");
@@ -72,12 +72,13 @@
                     $('#uid').val('Oops!!! Invalid URL');
                 }
                 $('#inputs-wrapper').animate({height: "268px"}, 1000, "easeOutBounce");
+                $('li #getButton').removeClass('disabled');
             })
         } else {
             $('#uid').val('Oops!!! Invalid URL');
             $('#inputs-wrapper').animate({height: "268px"}, 1000, "easeOutBounce");
+            $('li #getButton').removeClass('disabled');
         }
-        $('#getButton').removeClass('disabled');
 	}
 	</script>
 <script>
