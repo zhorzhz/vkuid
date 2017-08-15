@@ -29,7 +29,7 @@
 
 		<ul>
 			<li>
-				<input id="url" type="text" class="main-input" placeholder="Profile URL" itemprop="userPageUrl" required>
+				<input id="url" type="text" class="main-input" placeholder="Profile URL e.g. https://vk.com/username" itemprop="userPageUrl" required>
 			</li>
 			<li style="text-align: center;">
 				<div class="get-btn" onclick="get()">
@@ -54,19 +54,19 @@
 		VK.init({
 			apiId: 5487312
 		});
-                get();    
+        $('#inputs-wrapper').animate({ height: "150px" }, 1000, "easeOutBounce");
 	});
 	function get(){
 		var input = $('#url').val().slice($('#url').val().indexOf('.com') + 5);
         $('#inputs-wrapper').animate({ height: "150px" }, 1000, "easeOutBounce");
+
 		VK.Api.call('users.get', {user_ids: input}, function(response) {
             if(response.response){
 				$('#uid').val(response.response[0].uid);
-				$("#page").attr("href", 'http://vk.com/id'+response.response[0].uid);
-                $('#inputs-wrapper').animate({ height: "268px" }, 1000, "easeOutBounce");
 	    	} else {
-	    		alert('Oops');
+                $('#uid').val('Oops!!! Invalid URL');
 	    	}
+            $('#inputs-wrapper').animate({ height: "268px" }, 1000, "easeOutBounce");
 		})
 	}
 	</script>
