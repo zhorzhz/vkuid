@@ -32,7 +32,7 @@
 				<input id="url" type="text" class="main-input" placeholder="Profile URL e.g. https://vk.com/username" itemprop="userPageUrl" required>
 			</li>
 			<li style="text-align: center;">
-				<div class="get-btn" onclick="get()">
+				<div class="get-btn" id="getButton" onclick="get()">
 					<span itemprop="getUserId">get Uid</span>
 				</div>
 			</li>
@@ -56,18 +56,25 @@
 		});
         $('#inputs-wrapper').animate({ height: "150px" }, 1000, "easeOutBounce");
 	});
+    var regex = new RegExp("(vk|vkontakte)\.com\/");
 	function get(){
-		var input = $('#url').val().slice($('#url').val().indexOf('.com') + 5);
-        $('#inputs-wrapper').animate({ height: "150px" }, 1000, "easeOutBounce");
-
-		VK.Api.call('users.get', {user_ids: input}, function(response) {
-            if(response.response){
-				$('#uid').val(response.response[0].uid);
-	    	} else {
-                $('#uid').val('Oops!!! Invalid URL');
-	    	}
-            $('#inputs-wrapper').animate({ height: "268px" }, 1000, "easeOutBounce");
-		})
+        var valid = regex.test($('#url').val());
+        if(valid) {
+            var input = $('#url').val().slice($('#url').val().indexOf('.com') + 5);
+            $('#getButton').addClass('loading hidden');
+            $('#inputs-wrapper').animate({height: "150px"}, 1000, "easeOutBounce");
+            VK.Api.call('users.get', {user_ids: input}, function (response) {
+                if (response.response) {
+                    $('#uid').val(response.response[0].uid);
+                } else {
+                    $('#uid').val('Oops!!! Invalid URL');
+                }
+                $('#inputs-wrapper').animate({height: "268px"}, 1000, "easeOutBounce");
+            })
+        } else {
+            $('#uid').val('Oops!!! Invalid URL');
+            $('#inputs-wrapper').animate({height: "268px"}, 1000, "easeOutBounce");
+        }
 	}
 	</script>
 <script>
